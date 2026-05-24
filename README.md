@@ -42,41 +42,49 @@ SockJS	WebSocket Fallback
 HTML/CSS/JS	Frontend
 Maven	Dependency Management
 📂 Project Structure
+## 📁 Project Structure
+
+```bash
 notification_system/
 │
 ├── src/
 │   ├── main/
-│   │   ├── java/com/demo/notification/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── demo/
+│   │   │           └── notification/
 │   │   │
-│   │   ├── config/
-│   │   │   └── WebSocketConfig.java
-│   │   │
-│   │   ├── controller/
-│   │   │   └── HomeController.java
-│   │   │
-│   │   ├── dto/
-│   │   │   └── NotificationMessage.java
-│   │   │
-│   │   ├── entity/
-│   │   │   └── Notification.java
-│   │   │
-│   │   ├── repository/
-│   │   │   └── NotificationRepository.java
-│   │   │
-│   │   ├── service/
-│   │   │   └── NotificationService.java
-│   │   │
-│   │   └── NotificationApplication.java
+│   │   │               ├── config/
+│   │   │               │   └── WebSocketConfig.java
+│   │   │               │
+│   │   │               ├── controller/
+│   │   │               │   └── HomeController.java
+│   │   │               │
+│   │   │               ├── dto/
+│   │   │               │   └── NotificationMessage.java
+│   │   │               │
+│   │   │               ├── entity/
+│   │   │               │   └── Notification.java
+│   │   │               │
+│   │   │               ├── repository/
+│   │   │               │   └── NotificationRepository.java
+│   │   │               │
+│   │   │               ├── service/
+│   │   │               │   └── NotificationService.java
+│   │   │               │
+│   │   │               └── NotificationApplication.java
 │   │
-│   └── resources/
-│       ├── static/
-│       │   ├── index.html
-│       │   ├── style.css
-│       │   └── script.js
-│       │
-│       └── application.properties
+│   │   └── resources/
+│   │       │
+│   │       ├── static/
+│   │       │   ├── index.html
+│   │       │   ├── style.css
+│   │       │   └── script.js
+│   │       │
+│   │       └── application.properties
 │
 ├── pom.xml
+│
 └── README.md
 🚀 How To Run The Project
 1️⃣ Clone Repository
