@@ -129,3 +129,12 @@ function showNotification(message) {
 
     `;
 }
+//     container.innerHTML += `
+
+//         <div class="notification">
+//             <h3>NEW MESSAGE</h3>
+//             <p>${message}</p>
+//         </div>
+
+//     `;
+// }
