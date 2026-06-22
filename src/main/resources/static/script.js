@@ -1,75 +1,275 @@
-// const API_URL = "http://localhost:8081/notifications";
+// // // const API_URL = "http://localhost:8081/notifications";
 
-// async function loadNotifications() {
+// // // async function loadNotifications() {
 
-//     const response = await fetch(API_URL + "/all");
+// // //     const response = await fetch(API_URL + "/all");
 
-//     const data = await response.json();
+// // //     const data = await response.json();
 
-//     const container = document.getElementById("notifications");
+// // //     const container = document.getElementById("notifications");
 
-//     container.innerHTML = "";
+// // //     container.innerHTML = "";
 
-//     data.forEach(notification => {
+// // //     data.forEach(notification => {
 
-//         container.innerHTML += `
-//             <div class="notification">
-//                 <h3>${notification.title}</h3>
-//                 <p>${notification.message}</p>
+// // //         container.innerHTML += `
+// // //             <div class="notification">
+// // //                 <h3>${notification.title}</h3>
+// // //                 <p>${notification.message}</p>
 
-//                 <button onclick="deleteNotification(${notification.id})">
-//                     Delete
-//                 </button>
-//             </div>
-//         `;
+// // //                 <button onclick="deleteNotification(${notification.id})">
+// // //                     Delete
+// // //                 </button>
+// // //             </div>
+// // //         `;
+// // //     });
+// // // }
+
+// // // async function addNotification() {
+
+// // //     const title = document.getElementById("title").value;
+
+// // //     const message = document.getElementById("message").value;
+
+// // //     await fetch(API_URL, {
+
+// // //         method: "POST",
+
+// // //         headers: {
+// // //             "Content-Type": "application/json"
+// // //         },
+
+// // //         body: JSON.stringify({
+// // //             title,
+// // //             message
+// // //         })
+// // //     });
+
+// // //     loadNotifications();
+// // // }
+
+// // // async function deleteNotification(id) {
+
+// // //     await fetch(API_URL + "/" + id, {
+// // //         method: "DELETE"
+// // //     });
+
+// // //     loadNotifications();
+// // // }
+
+// // // loadNotifications();
+
+// // let stompClient = null;
+
+// // let currentUserId = null;
+
+// // function connectUser() {
+
+// //     currentUserId = document.getElementById("currentUser").value;
+
+// //     const socket = new SockJS('/ws');
+
+// //     stompClient = Stomp.over(socket);
+
+// //     stompClient.connect({}, function () {
+
+// //         console.log("Connected");
+
+// //         document.getElementById("status").innerText =
+// //             "WebSocket Connected";
+
+// //         // stompClient.subscribe(
+// //         //     '/topic/notifications/' + currentUserId,
+
+// //         //     function (notification) {
+
+// //         //         const data = JSON.parse(notification.body);
+
+// //         //         showNotification(data.message);
+// //         //     }
+// //         // );
+// //         stompClient.subscribe(
+// //     '/topic/notifications/1',
+
+// //     // function (notification) {
+
+// //     //     const data = JSON.parse(notification.body);
+
+// //     //     console.log("Notification Received:", data);
+
+// //     //     showNotification(
+// //     //         `${data.event} : ${data.supplierName}`
+// //     //     );
+// //     // }
+// //     function(notification) {
+
+// //     console.log(
+// //         "NOTIFICATION RECEIVED"
+// //     );
+
+// //     console.log(
+// //         notification.body
+// //     );
+
+// //     const data =
+// //         JSON.parse(notification.body);
+
+// //     console.log(data);
+
+// // }
+// // );
+// //     });
+// // }
+
+// // function sendNotification() {
+
+// //     const receiverId =
+// //         document.getElementById("targetUserId").value;
+
+// //     const message =
+// //         document.getElementById("message").value;
+
+// //     const notification = {
+
+// //         senderId: currentUserId,
+
+// //         receiverId: receiverId,
+
+// //         message: message
+// //     };
+
+// //     stompClient.send(
+// //         "/app/sendMessage",
+// //         {},
+// //         JSON.stringify(notification)
+// //     );
+// // }
+
+// // function showNotification(message) {
+
+// //     const container =
+// //         document.getElementById("notifications");
+
+// //     container.innerHTML += `
+
+// //         <div class="notification">
+// //             <h3>NEW MESSAGE</h3>
+// //             <p>${message}</p>
+// //         </div>
+
+// //     `;
+// // }
+// // //     container.innerHTML += `
+
+// // //         <div class="notification">
+// // //             <h3>NEW MESSAGE</h3>
+// // //             <p>${message}</p>
+// // //         </div>
+
+// // //     `;
+// // // }
+// let stompClient = null;
+
+// let currentUserId = null;
+
+// function connectUser() {
+
+//     currentUserId =
+//         document.getElementById("currentUser").value;
+
+//     const socket =
+//         new SockJS('/ws');
+
+//     stompClient =
+//         Stomp.over(socket);
+
+//     stompClient.connect({}, function () {
+
+//         console.log("Connected");
+
+//         document.getElementById("status").innerText =
+//             "WebSocket Connected";
+
+//         stompClient.subscribe(
+//             '/topic/notifications/1',
+
+//             function(notification) {
+
+//                 console.log(
+//                     "NOTIFICATION RECEIVED"
+//                 );
+
+//                 console.log(
+//                     notification.body
+//                 );
+
+//                 const data =
+//                     JSON.parse(
+//                         notification.body
+//                     );
+
+//                 console.log(data);
+
+//                 showNotification(
+//                     `${data.event} : ${data.supplierName}`
+//                 );
+//             }
+//         );
 //     });
 // }
 
-// async function addNotification() {
+// function sendNotification() {
 
-//     const title = document.getElementById("title").value;
+//     const receiverId =
+//         document.getElementById("targetUserId").value;
 
-//     const message = document.getElementById("message").value;
+//     const message =
+//         document.getElementById("message").value;
 
-//     await fetch(API_URL, {
+//     const notification = {
 
-//         method: "POST",
+//         senderId: currentUserId,
 
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
+//         receiverId: receiverId,
 
-//         body: JSON.stringify({
-//             title,
-//             message
-//         })
-//     });
+//         message: message
+//     };
 
-//     loadNotifications();
+//     stompClient.send(
+//         "/app/sendMessage",
+//         {},
+//         JSON.stringify(notification)
+//     );
 // }
 
-// async function deleteNotification(id) {
+// function showNotification(message) {
 
-//     await fetch(API_URL + "/" + id, {
-//         method: "DELETE"
-//     });
+//     const container =
+//         document.getElementById(
+//             "notifications"
+//         );
 
-//     loadNotifications();
+//     container.innerHTML += `
+//         <div class="notification">
+//             <h3>NEW EVENT</h3>
+//             <p>${message}</p>
+//         </div>
+//     `;
 // }
-
-// loadNotifications();
-
 let stompClient = null;
 
 let currentUserId = null;
 
 function connectUser() {
 
-    currentUserId = document.getElementById("currentUser").value;
+    currentUserId =
+        document.getElementById("currentUser").value;
 
-    const socket = new SockJS('/ws');
+    const socket =
+        new SockJS('/ws');
 
-    stompClient = Stomp.over(socket);
+    stompClient =
+        Stomp.over(socket);
 
     stompClient.connect({}, function () {
 
@@ -79,13 +279,28 @@ function connectUser() {
             "WebSocket Connected";
 
         stompClient.subscribe(
-            '/topic/notifications/' + currentUserId,
+            "/topic/notifications/1",
 
             function (notification) {
 
-                const data = JSON.parse(notification.body);
+                console.log(
+                    "NOTIFICATION RECEIVED"
+                );
 
-                showNotification(data.message);
+                console.log(
+                    notification.body
+                );
+
+                const data =
+                    JSON.parse(
+                        notification.body
+                    );
+
+                console.log(data);
+
+                showNotification(
+                    `${data.event} : ${data.supplierName}`
+                );
             }
         );
     });
@@ -117,24 +332,31 @@ function sendNotification() {
 
 function showNotification(message) {
 
+    console.log(
+        "showNotification called"
+    );
+
     const container =
-        document.getElementById("notifications");
+        document.getElementById(
+            "notifications"
+        );
+
+    console.log(
+        "Container:",
+        container
+    );
 
     container.innerHTML += `
-
-        <div class="notification">
-            <h3>NEW MESSAGE</h3>
+        <div style="
+            background:#1e293b;
+            color:white;
+            padding:12px;
+            margin-top:10px;
+            border-radius:8px;
+            border-left:5px solid #22c55e;
+        ">
+            <h3>NEW EVENT</h3>
             <p>${message}</p>
         </div>
-
     `;
 }
-//     container.innerHTML += `
-
-//         <div class="notification">
-//             <h3>NEW MESSAGE</h3>
-//             <p>${message}</p>
-//         </div>
-
-//     `;
-// }
