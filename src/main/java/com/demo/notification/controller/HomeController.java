@@ -331,5 +331,31 @@ public void sendIndent(
     );
 }
 
+@MessageMapping("/approveIndent")
+public void approveIndent(
+        IndentMessage indent) {
+
+    indent.setStatus("Approved");
+
+    messagingTemplate.convertAndSend(
+            "/topic/indent/" +
+                    indent.getSenderId(),
+            indent
+    );
+}
+
+@MessageMapping("/rejectIndent")
+public void rejectIndent(
+        IndentMessage indent) {
+
+    indent.setStatus("Rejected");
+
+    messagingTemplate.convertAndSend(
+            "/topic/indent/" +
+                    indent.getSenderId(),
+            indent
+    );
+}
+
 }
 
