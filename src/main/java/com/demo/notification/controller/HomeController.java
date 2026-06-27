@@ -128,7 +128,7 @@
 package com.demo.notification.controller;
 import com.demo.notification.dto.IndentMessage;
 
-
+import com.demo.notification.service.IndentService;
 import com.demo.notification.dto.NotificationMessage;
 import com.demo.notification.entity.Notification;
 import com.demo.notification.service.NotificationService;
@@ -154,6 +154,9 @@ public class HomeController {
 
     @Autowired
     private OnlineUserService onlineUserService;
+
+    @Autowired
+private IndentService indentService;
 
     @GetMapping
     public String home() {
@@ -316,6 +319,20 @@ public class HomeController {
 //             indent
 //     );
 // }
+// @MessageMapping("/sendIndent")
+// public void sendIndent(
+//         IndentMessage indent) {
+
+//     System.out.println("========== INDENT RECEIVED ==========");
+//     System.out.println("Sender : " + indent.getSenderName());
+//     System.out.println("Time   : " + indent.getTimestamp());
+
+//     messagingTemplate.convertAndSend(
+//             "/topic/indent/" +
+//                     indent.getReceiverId(),
+//             indent
+//     );
+// }
 @MessageMapping("/sendIndent")
 public void sendIndent(
         IndentMessage indent) {
@@ -324,6 +341,10 @@ public void sendIndent(
     System.out.println("Sender : " + indent.getSenderName());
     System.out.println("Time   : " + indent.getTimestamp());
 
+    indentService.saveIndent(
+            indent
+    );
+
     messagingTemplate.convertAndSend(
             "/topic/indent/" +
                     indent.getReceiverId(),
@@ -331,11 +352,30 @@ public void sendIndent(
     );
 }
 
+// @MessageMapping("/approveIndent")
+// public void approveIndent(
+//         IndentMessage indent) {
+
+//     indent.setStatus("Approved");
+
+//     messagingTemplate.convertAndSend(
+//             "/topic/indent/" +
+//                     indent.getSenderId(),
+//             indent
+//     );
+// }
 @MessageMapping("/approveIndent")
 public void approveIndent(
         IndentMessage indent) {
 
-    indent.setStatus("Approved");
+    indent.setStatus(
+            "Approved"
+    );
+
+    indentService.updateStatus(
+            indent.getIndentId(),
+            "Approved"
+    );
 
     messagingTemplate.convertAndSend(
             "/topic/indent/" +
@@ -344,11 +384,30 @@ public void approveIndent(
     );
 }
 
+// @MessageMapping("/rejectIndent")
+// public void rejectIndent(
+//         IndentMessage indent) {
+
+//     indent.setStatus("Rejected");
+
+//     messagingTemplate.convertAndSend(
+//             "/topic/indent/" +
+//                     indent.getSenderId(),
+//             indent
+//     );
+// }
 @MessageMapping("/rejectIndent")
 public void rejectIndent(
         IndentMessage indent) {
 
-    indent.setStatus("Rejected");
+    indent.setStatus(
+            "Rejected"
+    );
+
+    indentService.updateStatus(
+            indent.getIndentId(),
+            "Rejected"
+    );
 
     messagingTemplate.convertAndSend(
             "/topic/indent/" +
